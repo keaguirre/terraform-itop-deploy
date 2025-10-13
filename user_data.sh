@@ -12,7 +12,7 @@ EFS_ID="${efs_id}"
 AWS_REGION="${aws_region}"
 
 # Variables internas del script (escapadas con $$)
-MOUNT_POINT="/var/www/html"
+MOUNT_POINT="/var/www/itop/"
 EFS_DNS="$${EFS_ID}.efs.$${AWS_REGION}.amazonaws.com"
 DNS_RETRIES=20
 SLEEP_SECONDS=6
