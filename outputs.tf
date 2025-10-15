@@ -1,7 +1,3 @@
-# =====================================================
-# Outputs principales del despliegue de iTop en AWS
-# =====================================================
-
 output "instance_id" {
   description = "ID de la instancia EC2 iTop"
   value       = aws_instance.itop.id
@@ -23,16 +19,12 @@ output "itop_url" {
 }
 
 output "ssh_command" {
-  description = "Comando para conectarse por SSH usando la Elastic IP"
+  description = "Comando SSH usando la Elastic IP"
   value       = "ssh -i ~/.ssh/${var.key_name}.pem ubuntu@${aws_eip.itop.public_ip}"
 }
 
-# =====================================================
-# Información de la AMI
-# =====================================================
-
 output "ami_id" {
-  description = "ID de la AMI utilizada para crear la instancia"
+  description = "ID de la AMI utilizada"
   value       = data.aws_ami.itop.id
 }
 
@@ -46,53 +38,17 @@ output "ami_creation_date" {
   value       = data.aws_ami.itop.creation_date
 }
 
-# =====================================================
-# Información de EFS y red
-# =====================================================
-
 output "efs_id" {
-  description = "ID del sistema de archivos EFS usado por iTop"
+  description = "ID del sistema de archivos EFS"
   value       = aws_efs_file_system.itop.id
 }
 
 output "efs_dns_name" {
-  description = "Nombre DNS del sistema de archivos EFS"
+  description = "DNS name del EFS"
   value       = aws_efs_file_system.itop.dns_name
 }
 
 output "vpc_id" {
-  description = "ID de la VPC donde se desplegó la instancia"
+  description = "ID de la VPC creada"
   value       = aws_vpc.main.id
-}
-
-# =====================================================
-# Resumen general
-# =====================================================
-
-output "summary" {
-  description = "Resumen general del despliegue de iTop"
-  value = <<EOT
-
-🔹 Proyecto: ${var.project_name}
-🔹 Entorno: ${var.environment}
-🔹 Región AWS: ${var.aws_region}
-
-🖥️ Instancia EC2
-   - ID: ${aws_instance.itop.id}
-   - Elastic IP: ${aws_eip.itop.public_ip}
-   - SSH: ssh -i ~/.ssh/${var.key_name}.pem ubuntu@${aws_eip.itop.public_ip}
-
-📦 AMI Base
-   - ID: ${data.aws_ami.itop.id}
-   - Nombre: ${data.aws_ami.itop.name}
-   - Creada: ${data.aws_ami.itop.creation_date}
-
-📂 EFS
-   - ID: ${aws_efs_file_system.itop.id}
-   - DNS: ${aws_efs_file_system.itop.dns_name}
-
-🌐 URL iTop
-   - http://${aws_eip.itop.public_ip}/
-
-EOT
 }

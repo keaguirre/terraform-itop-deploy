@@ -216,19 +216,6 @@ resource "aws_eip_association" "itop" {
   allocation_id = aws_eip.itop.id
 }
 
-# ===== Outputs útiles =====
-output "instance_id" {
-  value = aws_instance.itop.id
-}
-
 output "public_ip" {
   value = aws_eip.itop.public_ip
-}
-
-output "itop_url" {
-  value = "http://${aws_eip.itop.public_ip}/"
-}
-
-output "efs_id" {
-  value = aws_efs_file_system.itop.id
 }
